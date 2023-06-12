@@ -77,7 +77,7 @@ Highcharts.chart('container', {
 	</tr>
 	<tr>
 		<th rowspan="2">분석결과</th>
-		<td class="left">긍정 : 700%, 부정 : 30%</td>
+		<td class="left">긍정 : 70%, 부정 : 30%</td>
 	</tr>				
 	<tr>
 		<td class="left"><span style="color:#ff6600">해당 종목은 상승 가능성이 높습니다.</span></td>
