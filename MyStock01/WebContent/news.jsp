@@ -8,7 +8,7 @@ String s = request.getParameter("s");
 <html>
 	<head>
 		<meta charset="EUC-KR">
-		<title>뉴스 더보기</title>
+		<title>뉴스 더보기++</title>
 		<link rel="stylesheet" href="./css/stock.css" charset="utf-8">
 		<link rel="stylesheet" href="./css/jquery-ui.css">
 		<script language="javascript" src="./js/jquery-3.6.0.js"></script>
