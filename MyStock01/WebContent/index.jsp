@@ -15,7 +15,8 @@
 		<script src="https://code.highcharts.com/highcharts.js"></script>
 		<script src="https://code.highcharts.com/modules/data.js"></script>
 		<script src="https://code.highcharts.com/modules/exporting.js"></script>
-		<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+		<script src="https://code.highcharts.com/modules/accessibility.js"></script>		
+		<script src="https://code.highcharts.com/modules/wordcloud.js"></script>
 	</head>
 	<body>
 	<script>
@@ -61,15 +62,6 @@
 				
 			}
 		}
-		
-		
-
-
-
-			
-		
-		
-		
 		//종목 목록을 불러온다.
 		function GetItemList()
 		{
@@ -174,7 +166,6 @@
 		}
 
 	</script>
-	
 	<table border="0" style="width:1300px" align="center">
 		<tr>
 			<td colspan="2"  style="height:80px" align="center">

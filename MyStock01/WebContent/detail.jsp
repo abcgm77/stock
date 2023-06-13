@@ -30,8 +30,100 @@ else if(svo.getStatus() == "E")
 }
 
 %>
+<style>
+#container {
+    height: 400px;
+}
 
+.highcharts-figure,
+.highcharts-data-table table {
+    min-width: 310px;
+    max-width: 800px;
+    margin: 1em auto;
+}
+
+#datatable {
+    font-family: Verdana, sans-serif;
+    border-collapse: collapse;
+    border: 1px solid #ebebeb;
+    margin: 10px auto;
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+}
+
+#datatable caption {
+    padding: 1em 0;
+    font-size: 1.2em;
+    color: #555;
+}
+
+#datatable th {
+    font-weight: 600;
+    padding: 0.5em;
+}
+
+#datatable td,
+#datatable th,
+#datatable caption {
+    padding: 0.5em;
+}
+
+#datatable thead tr,
+#datatable tr:nth-child(even) {
+    background: #f8f8f8;
+}
+
+#datatable tr:hover {
+    background: #f1f7ff;
+}
+<!-- #################### -->
+.highcharts-figure,
+.highcharts-data-table table {
+    min-width: 320px;
+    max-width: 800px;
+    margin: 1em auto;
+}
+
+.highcharts-data-table table {
+    font-family: Verdana, sans-serif;
+    border-collapse: collapse;
+    border: 1px solid #ebebeb;
+    margin: 10px auto;
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+}
+
+.highcharts-data-table caption {
+    padding: 1em 0;
+    font-size: 1.2em;
+    color: #555;
+}
+
+.highcharts-data-table th {
+    font-weight: 600;
+    padding: 0.5em;
+}
+
+.highcharts-data-table td,
+.highcharts-data-table th,
+.highcharts-data-table caption {
+    padding: 0.5em;
+}
+
+.highcharts-data-table thead tr,
+.highcharts-data-table tr:nth-child(even) {
+    background: #f8f8f8;
+}
+
+.highcharts-data-table tr:hover {
+    background: #f1f7ff;
+}
+</style>
 <script type="text/javascript">
+
+
 Highcharts.chart('container', {
     data: {
         table: 'datatable'
@@ -52,7 +144,67 @@ Highcharts.chart('container', {
         }
     }
 });
+
+
+function wordcloud(){
+	const text =
+		  'Chapter 1. Down the Rabbit-Hole ' +
+		  'Alice was beginning to get very tired of sitting by her sister on the bank, and of having nothing to do: ' +
+		  'once or twice she had peeped into the book her sister was reading, but it had no pictures or conversations ' +
+		  'in it, \'and what is the use of a book,\' thought Alice \'without pictures or conversation?\'' +
+		  'So she was considering in her own mind (as well as she could, for the hot day made her feel very sleepy ' +
+		  'and stupid), whether the pleasure of making a daisy-chain would be worth the trouble of getting up and picking ' +
+		  'the daisies, when suddenly a White Rabbit with pink eyes ran close by her.',
+		  lines = text.replace(/[():'?0-9]+/g, '').split(/[,\. ]+/g),
+		  data = lines.reduce((arr, word) => {
+		    let obj = Highcharts.find(arr, obj => obj.name === word);
+		    if (obj) {
+		      obj.weight += 1;
+		    } else {
+		      obj = {
+		        name: word,
+		        weight: 1
+		      };
+		      arr.push(obj);
+		    }
+		    return arr;
+		  }, []);
+
+		Highcharts.chart('container2', {
+		  accessibility: {
+		    screenReaderSection: {
+		      beforeChartFormat: '<h5>{chartTitle}</h5>' +
+		        '<div>{chartSubtitle}</div>' +
+		        '<div>{chartLongdesc}</div>' +
+		        '<div>{viewTableButton}</div>'
+		    }
+		  },
+		  series: [{
+		    type: 'wordcloud',
+		    data,
+		    name: 'Occurrences'
+		  }],
+		  title: {
+		    text: '',
+		    align: 'left'
+		  },
+		  subtitle: {
+		    text: '',
+		    align: 'left'
+		  },
+		  tooltip: {
+		    headerFormat: '<span style="font-size: 16px"><b>{point.key}</b></span><br>'
+		  }
+		});
+	}
+	
+wordcloud();
+
+
 </script>
+
+
+	
 <table border="0" class="tb" style="width:100%" align="center">
 	<tr>
 		<td colspan="2" class="right">현재시간 : <strong><span id="curTime"></span></strong></td>
@@ -183,7 +335,9 @@ Highcharts.chart('container', {
 					<th>제목</th>
 					<th style="width:150px">날짜</th>
 					<th style="width:70px">부정확률</th>
-					<td rowspan="10"><img src="./images/wc.png" style="width:200px;height:200px;"></td>
+					<td rowspan="10">
+		    			<div id="container2" style="width:200px; height:200px; margin:0; padding:0; object-fit: cover;"></div>		    			
+					</td>
 				</tr>							
 				<%
 				for(int i = 1; i <= 5; i++)
