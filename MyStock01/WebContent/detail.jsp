@@ -337,22 +337,41 @@ wordcloud2();
 		<th>분석상태</th>
 		<td class="left"><span class="<%= sclass %>"><%= status %></span></td>
 	</tr>
+
 	<tr>
 		<th rowspan="2">분석결과</th>
 		<%
-			int p_count = newsdto.GetTotal("p", code, 1);
-	    	int n_count = newsdto.GetTotal("n", code, 1);
-	    	double sum     = p_count + n_count;
-	    	
-	    	int p_percent = (int)(p_count / sum * 100);
-	    	int n_percent = (int)(n_count / sum * 100);
-	    	System.out.println(p_count);
-	    	System.out.println(n_count);
+		int p_count = newsdto.GetTotal("p", code, 1);
+    	int n_count = newsdto.GetTotal("n", code, 1);
+    	double sum     = p_count + n_count;
+    	
+    	int p_percent = (int)(p_count / sum * 100);
+    	int n_percent = (int)(n_count / sum * 100);
+    	System.out.println(p_count);
+    	System.out.println(n_count);
+	    
+    	if (svo.getStatus().equals("C"))
+    	{	    		
 		%>
 		<td class="left">긍정 : <%= p_percent %>%, 부정 : <%= n_percent %>%</td>
-	</tr>				
+		<%
+    	}else{
+   		%>
+   		<td class="left">결과가 없습니다.</td>
+   		<%
+    	}
+		%>
+	</tr>
+			
 	<tr>
+		<%
+    	if (svo.getStatus().equals("C"))
+    	{
+		%>
 		<td class="left"><span style="color:#ff6600">해당 종목은 <%= (p_percent > n_percent) ? "상승" : "하락" %> 가능성이 높습니다.</span></td>
+		<%
+    	}
+		%>
 	</tr>
 	<%
 	if(svo.getStatus().equals("C"))
