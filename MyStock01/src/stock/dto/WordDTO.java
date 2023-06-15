@@ -8,7 +8,7 @@ import stock.vo.WordVO;
 public class WordDTO extends DBManager
 {
 	//형태소 배열 불러오기
-	public String[] GetWordList(String etype, String code)
+	public String[] GetWordList(String etype, String code, String name)
 	{
 		//타입별로 해당 코드의 전날 기사만 불러오기
 		//불러온 해당기사의 일련번호로 wordlist에서 단어배열 불러오기
@@ -42,7 +42,7 @@ public class WordDTO extends DBManager
 		}
 		
 		//String new_value = sum_value.replaceAll("[\\[\\]\"\\s]+", "");
-		String new_value = sum_value.replaceAll("[\\[\\]\\s]+", "");
+		String new_value = sum_value.replaceAll("[\\[\\]\\s]+", "").replaceAll(name, "");;
 		String[] new_array = new_value.split(",");
 				
 		return new_array;

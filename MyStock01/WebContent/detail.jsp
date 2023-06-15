@@ -33,8 +33,8 @@ else if(svo.getStatus().equals("E"))
 newslistDTO newsdto = new newslistDTO();
 
 WordDTO wdto = new WordDTO();
-String [] p_wordlist = wdto.GetWordList("p", code);
-String [] n_wordlist = wdto.GetWordList("n", code);
+String [] p_wordlist = wdto.GetWordList("p", code, name);
+String [] n_wordlist = wdto.GetWordList("n", code, name);
 
 ArrayList<String> pwlist = new ArrayList<String>();
 
