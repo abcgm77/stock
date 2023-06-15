@@ -1,4 +1,5 @@
 package stock.dao;
+import java.sql.Array;
 import java.sql.Connection;
 
 import java.sql.DriverManager;
@@ -137,10 +138,38 @@ public class DBManager
 		}
 	}
 	
+	
 	//작은 따옴표 변환(SQL인젝션 대응방안)
 	public String _R(String value)
 	{
 		return value.replace("'", "''");
+	}
+	
+	//
+	public Array GetArray(String colname)
+	{
+		try
+		{
+			return rs.getArray(colname); 
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+			return null;
+		}	
+	}
+	
+	public Object GetObject(String colname)
+	{
+		try
+		{
+			return rs.getObject(colname); 
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+			return null;
+		}	
 	}
 	
 }

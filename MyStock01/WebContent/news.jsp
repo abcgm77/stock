@@ -1,8 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+<%@ page import="stock.dto.*" %>
+<%@ page import="stock.vo.*" %>
+<%@ page import="java.util.*" %>
 <%
-String s = request.getParameter("s");
+String etype = request.getParameter("etype");
+if(etype == null) etype = "p";
 
+String code = request.getParameter("code");
+if(code == null) code = "";
+
+
+newslistDTO newsdto = new newslistDTO();
+
+int  pageno = 1;
+try{
+	pageno = Integer.parseInt(request.getParameter("page"));
+}catch(Exception e){};
+
+//전체 자료의 갯수를 조회한다.
+int total = newsdto.GetTotal(etype, code, 1);
+int max_page = total / 10; //전체 페이지 갯수
+if( total % 10 != 0) max_page++;
 %>
 <!DOCTYPE html>
 <html>
@@ -15,32 +34,42 @@ String s = request.getParameter("s");
 		<script language="javascript" src="./js/jquery-ui.js"></script>	
 	</head>
 	<body>
-	
-		<table border="0" class="tb_in" style="width:100%" align="center">
+		<div style="margin:30px;">
+		<table border="0" class="tb_in" style="width:100%;" align="center">
+
 			<%
-				if(s.equals("p")){
+				if(etype.equals("p")){
 			%>
 				<tr>
 					<th style="width:50px">번호</th>
 					<th>제목</th>
 					<th style="width:150px">날짜</th>
 					<th style="width:70px">긍정확률</th>
-					<td rowspan="10"><img src="./images/wc.png" style="width:200px;height:200px;"></td>
+					<!-- td rowspan="10"><img src="./images/wc.png" style="width:200px;height:200px;"></td -->
 				</tr>							
 				<%
-				for(int i = 1; i <= 5; i++)
+				ArrayList<newslistVO> plist = newsdto.GetList(pageno, "p", code , 10);
+				int p_page = (pageno - 1) * 10 + 1;
+				for(newslistVO vo : plist)
 				{
+					String title = vo.getTitle();
+					if(title.length() > 40)
+					{
+						title  = title.substring(0,40);
+						title += "...";
+					}					
 					%>
 					<tr>
-						<td class="center"><%= i %></td>
-						<td>[특징주]삼성전자, 3거래일 연속 ...</td>
-						<td class="center">2023.06.08 10:12</td>
-						<td class="right">98%</td>
+						<td class="center"><%= p_page %></td>
+						<td><a href="<%= vo.getUrl() %>" target='_blank'><%= title %></a></td>
+						<td class="center"><%= vo.getDate().substring(0,10) %></td>
+						<td class="right" style="color:#de6262;text-align:center;"><%= (int)vo.getScore() %>%</td>
 					</tr>
 					<%
+					p_page += 1;
 				}
 				%>
-			<%
+				<%
 				}
 				else
 				{
@@ -50,24 +79,76 @@ String s = request.getParameter("s");
 						<th>제목</th>
 						<th style="width:150px">날짜</th>
 						<th style="width:70px">부정확률</th>
-						<td rowspan="10"><img src="./images/wc.png" style="width:200px;height:200px;"></td>
+						<!-- td rowspan="10"><img src="./images/wc.png" style="width:200px;height:200px;"></td -->
 					</tr>							
 					<%
-					for(int i = 1; i <= 5; i++)
+					ArrayList<newslistVO> nlist = newsdto.GetList(pageno, "n", code , 10);
+					int n_page = (pageno - 1) * 10 + 1;
+					for(newslistVO vo : nlist)
 					{
+						String title = vo.getTitle();
+						if(title.length() > 40)
+						{
+							title  = title.substring(0,40);
+							title += "...";
+						}					
 						%>
 						<tr>
-							<td class="center"><%= i %></td>
-							<td>[특징주]삼성전자, 3거래일 연속 ...</td>
-							<td class="center">2023.06.08 10:12</td>
-							<td class="right">98%</td>
+							<td class="center"><%= n_page %></td>
+							<td><a href="<%= vo.getUrl() %>" target='_blank'><%= title %></a></td>
+							<td class="center"><%= vo.getDate().substring(0,10) %></td>
+							<td class="right" style="color:#005baa;text-align:center;"><%= (int)vo.getScore() %>%</td>
 						</tr>
 						<%
+						n_page += 1;
 					}
 					%>
 					<%
 				}
 			%>
+			<!-- page test -->
+				<tr>
+					<td style="text-align:center;" colspan="4">
+					<%
+					int startBlock = ((pageno - 1)/5)*5; //시작 블록 페이지
+					startBlock += 1;
+					int endBlock = startBlock  + 5 - 1;  //종료 블록 페이지
+					if( endBlock > max_page)
+					{
+						//종료 블록 페이지가 전체 페이지보다 크면....
+					    endBlock = max_page;
+					}	
+					//이전 블럭 표시하기
+					if(startBlock > 5)
+					{
+						%>
+						<a href="news.jsp?etype=<%= etype %>&code=<%= code %>&page=<%= startBlock - 1 %>">이전</a>
+						<%					
+					}		
+					
+					for(int page_no = startBlock; page_no <= endBlock; page_no++)
+					{
+						if(page_no == pageno)
+						{
+							%><a style="color:red" href="news.jsp?etype=<%= etype %>&code=<%= code %>&page=<%= page_no %>"><%= page_no %></a>&nbsp;<%
+						}else
+						{
+							%><a href="news.jsp?etype=<%= etype %>&code=<%= code %>&page=<%= page_no %>"><%= page_no %></a>&nbsp;<%
+						}
+					}
+					
+					//다음 블럭 표시하기
+					if(endBlock < max_page)
+					{
+						%>
+						<a href="news.jsp?etype=<%= etype %>&code=<%= code %>&page=<%= endBlock + 1 %>">다음</a>
+						<%					
+					}		
+					%>
+					</td>
+				</tr>				
+			<!-- page test -->
 		</table>
+		</div>
 	</body>
 </html>

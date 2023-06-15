@@ -7,6 +7,7 @@
 StockDTO dto = new StockDTO();
 ArrayList<StockVO> list = dto.ShowStock();
 %>
+
 <table border="0" class="tb edit" style="width:100%" align="center">
 	<tbody id="stocklist">
 	<tr>		
@@ -37,17 +38,17 @@ ArrayList<StockVO> list = dto.ShowStock();
 		String status = "분석대기";
 		String sclass = "status_able";
 		
-		if(vo.getStatus() == "R")
+		if(vo.getStatus().equals("R"))
 		{
 			status = "분석중";
 			sclass = "status_ableg";
 		}
-		else if(vo.getStatus() == "C")
+		else if(vo.getStatus().equals("C"))
 		{
 			status = "분석완료";
 			sclass = "status_ableb";
 		}
-		else if(vo.getStatus() == "E")
+		else if(vo.getStatus().equals("E"))
 		{
 			status = "없는종목";
 			sclass = "status_re";

@@ -24,9 +24,14 @@ public class StockDTO extends DBManager
 	public boolean DelStock(String code)
 	{
 		DBOpen();
-		String sql = "delete from stock where stockcode='" + _R(code) +"'";
-		RunCommand(sql);
 		
+		String sql = "delete w from wordlist w join newslist n on w.newsID = n.newsID where stockcode='" + _R(code) +"'";
+		RunCommand(sql);
+		sql = "delete from newslist where stockcode='" + _R(code) +"'";
+		RunCommand(sql);
+		sql = "delete from stock where stockcode='" + _R(code) +"'";
+		RunCommand(sql);
+
 		DBClose();
 		return true;
 	}
@@ -91,7 +96,7 @@ public class StockDTO extends DBManager
 		
 		return vo;
 	}
-	
+	//ÇöÀç°¡
 	public String NowPrice(String code)
 	{
 		DBOpen();
@@ -108,4 +113,6 @@ public class StockDTO extends DBManager
 		DBClose();
 		return price;
 	}
+	
+
 }

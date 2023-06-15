@@ -3,6 +3,7 @@
 <%@ page import="stock.dto.*" %>
 <%@ page import="stock.vo.*" %>
 <%@ page import="java.util.*" %>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -25,7 +26,7 @@
 			GetItemList();
 			
 			ShowTime();
-			setInterval(() => ShowTime(), 1000);		
+			//setInterval(() => ShowTime(), 1000);		
 		}
 		
 		//화면에 시간을 표시한다.
@@ -152,13 +153,14 @@
 			});		
 		}
 		
-		function OpenNews(str)
+		function OpenNews(etype,code)
 		{
-			var height = 700;
-			var width  = 700;
+			var height = 600;
+			var width  = 800;
 			var left   = (window.screen.width/2) - (width/2);
 			var top    = (window.screen.height/2) - (height/2);
-			popupWindow = window.open('news.jsp?s='+ str +'', 'test', 'width=' + width + ', height=' + height + ', top=' + top + ', left=' + left + '', 'resizeable');
+			
+			popupWindow = window.open('news.jsp?etype='+ etype +'&code='+ code +'', 'test', 'width=' + width + ', height=' + height + ', top=' + top + ', left=' + left + '', 'resizeable');
 			popupWindow.resizeTo(width, height);
 			popupWindow.onresize = (_=>{
 			    popupWindow.resizeTo(width, height);
