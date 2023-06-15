@@ -368,7 +368,7 @@ wordcloud2();
     	if (svo.getStatus().equals("C"))
     	{
 		%>
-		<td class="left"><span style="color:#ff6600">해당 종목은 <%= (p_percent > n_percent) ? "상승" : "하락" %> 가능성이 높습니다.</span></td>
+		<td class="left"><span style="color:#ff6600">해당 종목은 <%= (p_percent >= n_percent) ? ((p_percent > n_percent) ? "상승" : "중립") : "하락" %> 가능성이 높습니다.</span></td>
 		<%
     	}
 		%>
@@ -442,7 +442,7 @@ wordcloud2();
 				if (plist.size() == 0)
 				{
 					%>
-					<tr><td colspan="4" style="text-align:center;">뉴스 기사가 없습니다.</td></tr>
+					<tr><td colspan="4" style="text-align:center;">전일 뉴스 기사가 없습니다.</td></tr>
 					<%	
 				}else{					
 					int p_page = 1;
@@ -493,7 +493,7 @@ wordcloud2();
 				if (plist.size() == 0)
 				{
 					%>
-					<tr><td colspan="4" style="text-align:center;">뉴스 기사가 없습니다.</td></tr>
+					<tr><td colspan="4" style="text-align:center;">전일 뉴스 기사가 없습니다.</td></tr>
 					<%	
 				}else{			
 					int n_page = 1;
