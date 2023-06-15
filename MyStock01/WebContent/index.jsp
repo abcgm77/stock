@@ -26,7 +26,7 @@
 			GetItemList();
 			
 			ShowTime();
-			//setInterval(() => ShowTime(), 1000);		
+			setInterval(() => ShowTime(), 1000);		
 		}
 		
 		//화면에 시간을 표시한다.
@@ -47,7 +47,7 @@
 				dataType: "html",
 				success : function(data) 
 				{	
-					console.log(data);
+					//console.log(data);
 					// 통신이 성공적으로 이루어졌을때 이 함수를 타게된다.
 					$("#nowprice").html(data)
 				},
