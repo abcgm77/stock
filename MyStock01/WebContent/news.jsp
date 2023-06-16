@@ -53,9 +53,9 @@ if( total % 10 != 0) max_page++;
 				for(newslistVO vo : plist)
 				{
 					String title = vo.getTitle();
-					if(title.length() > 40)
+					if(title.length() > 33)
 					{
-						title  = title.substring(0,40);
+						title  = title.substring(0,33);
 						title += "...";
 					}					
 					%>
@@ -87,9 +87,9 @@ if( total % 10 != 0) max_page++;
 					for(newslistVO vo : nlist)
 					{
 						String title = vo.getTitle();
-						if(title.length() > 40)
+						if(title.length() > 33)
 						{
-							title  = title.substring(0,40);
+							title  = title.substring(0,33);
 							title += "...";
 						}					
 						%>
@@ -122,7 +122,7 @@ if( total % 10 != 0) max_page++;
 					if(startBlock > 5)
 					{
 						%>
-						<a href="news.jsp?etype=<%= etype %>&code=<%= code %>&page=<%= startBlock - 1 %>">이전</a>
+						<a style="font-weight:bold;" href="news.jsp?etype=<%= etype %>&code=<%= code %>&page=<%= startBlock - 1 %>">이전</a>
 						<%					
 					}		
 					
@@ -130,10 +130,10 @@ if( total % 10 != 0) max_page++;
 					{
 						if(page_no == pageno)
 						{
-							%><a style="color:red" href="news.jsp?etype=<%= etype %>&code=<%= code %>&page=<%= page_no %>"><%= page_no %></a>&nbsp;<%
+							%><a style="color:red; font-weight:bold;" href="news.jsp?etype=<%= etype %>&code=<%= code %>&page=<%= page_no %>"><%= page_no %></a>&nbsp;<%
 						}else
 						{
-							%><a href="news.jsp?etype=<%= etype %>&code=<%= code %>&page=<%= page_no %>"><%= page_no %></a>&nbsp;<%
+							%><a style="font-weight:bold;" href="news.jsp?etype=<%= etype %>&code=<%= code %>&page=<%= page_no %>"><%= page_no %></a>&nbsp;<%
 						}
 					}
 					
@@ -141,7 +141,7 @@ if( total % 10 != 0) max_page++;
 					if(endBlock < max_page)
 					{
 						%>
-						<a href="news.jsp?etype=<%= etype %>&code=<%= code %>&page=<%= endBlock + 1 %>">다음</a>
+						<a style="font-weight:bold;" href="news.jsp?etype=<%= etype %>&code=<%= code %>&page=<%= endBlock + 1 %>">다음</a>
 						<%					
 					}		
 					%>

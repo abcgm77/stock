@@ -153,6 +153,14 @@
 			});		
 		}
 		
+		function DeleteItem(code)
+		{
+			if(confirm("해당 종목을 삭제하시겠습니까?") == true)
+			{
+				document.location = "delitem.jsp?code=" + code;
+			}
+		}
+		
 		function OpenNews(etype,code)
 		{
 			var height = 600;

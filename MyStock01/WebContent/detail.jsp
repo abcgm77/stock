@@ -16,7 +16,7 @@ String sclass = "status_able";
 
 if(svo.getStatus().equals("R"))
 {
-	status = "분석중";
+	status = "분&nbsp;&nbsp;석&nbsp;&nbsp;중";
 	sclass = "status_ableg";
 }
 else if(svo.getStatus().equals("C"))
@@ -146,6 +146,7 @@ for(String s : n_wordlist)
 <script type="text/javascript">
 
 Highcharts.chart('container', {
+	colors: ['#de6262', '#005baa'],
     data: {
         table: 'datatable'
     },
@@ -182,7 +183,7 @@ function wordcloud1(){
 	// 빈도수를 기준으로 내림차순 정렬된 단어 배열 생성
 	var sortedWords = Object.entries(wordFrequency).sort((a, b) => b[1] - a[1]);
 
-	// 상위 30개 단어만 남기고 나머지는 제외
+	// 상위 40개 단어만 남기고 나머지는 제외
 	var topWords = sortedWords.slice(0, 40).flatMap(([word, frequency]) => {
 	  var repeatedWords = [];
 	  for (let i = 0; i < frequency; i++) {
@@ -254,7 +255,7 @@ function wordcloud2(){
 	// 빈도수를 기준으로 내림차순 정렬된 단어 배열 생성
 	var sortedWords = Object.entries(wordFrequency).sort((a, b) => b[1] - a[1]);
 
-	// 상위 30개 단어만 남기고 나머지는 제외
+	// 상위 40개 단어만 남기고 나머지는 제외
 	var topWords = sortedWords.slice(0, 40).flatMap(([word, frequency]) => {
 	  var repeatedWords = [];
 	  for (let i = 0; i < frequency; i++) {
@@ -393,8 +394,6 @@ wordcloud2();
 			        </thead>
 			        <tbody>
 			        <%
-			        
-			        
 			        for (int i=7; i>=1; i--)
 			        {
 				        Calendar calendar = new GregorianCalendar();
@@ -449,9 +448,9 @@ wordcloud2();
 					for(newslistVO vo : plist)
 					{
 						String title = vo.getTitle();
-						if(title.length() > 27)
+						if(title.length() > 25)
 						{
-							title  = title.substring(0,27);
+							title  = title.substring(0,25);
 							title += "...";
 						}					
 						%>
@@ -464,7 +463,17 @@ wordcloud2();
 						<%
 						p_page += 1;
 					}
-					
+					for (int i=1; i<=5-plist.size(); i++)
+					{
+						%>
+						<tr>
+							<td class="center" style="height: 35px;"></td>
+							<td></td>
+							<td class="center"></td>
+							<td class="right" style="color:#005baa; text-align:center;"></td>
+						</tr>
+						<%
+					}
 				}
 				%>
 			</table>							
@@ -490,7 +499,7 @@ wordcloud2();
 				</tr>							
 				<%
 				ArrayList<newslistVO> nlist = newsdto.GetList(1, "n", code , 5);
-				if (plist.size() == 0)
+				if (nlist.size() == 0)
 				{
 					%>
 					<tr><td colspan="4" style="text-align:center;">전일 뉴스 기사가 없습니다.</td></tr>
@@ -500,9 +509,9 @@ wordcloud2();
 					for(newslistVO vo : nlist)
 						{
 						String title = vo.getTitle();
-						if(title.length() > 27)
+						if(title.length() > 25)
 						{
-							title  = title.substring(0,27);
+							title  = title.substring(0,25);
 							title += "...";
 						}					
 						%>
@@ -512,8 +521,19 @@ wordcloud2();
 							<td class="center"><%= vo.getDate().substring(0,10) %></td>
 							<td class="right" style="color:#005baa; text-align:center;"><%= (int)vo.getScore() %>%</td>
 						</tr>
-						<%
+						<%						
 						n_page += 1;
+					}
+					for (int i=1; i<=5-nlist.size(); i++)
+					{
+						%>
+						<tr>
+							<td class="center" style="height: 35px;"></td>
+							<td></td>
+							<td class="center"></td>
+							<td class="right" style="color:#005baa; text-align:center;"></td>
+						</tr>
+						<%
 					}
 				}
 				%>

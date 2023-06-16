@@ -40,7 +40,7 @@ ArrayList<StockVO> list = dto.ShowStock();
 		
 		if(vo.getStatus().equals("R"))
 		{
-			status = "분석중";
+			status = "분&nbsp;&nbsp;석&nbsp;&nbsp;중";
 			sclass = "status_ableg";
 		}
 		else if(vo.getStatus().equals("C"))
@@ -60,7 +60,8 @@ ArrayList<StockVO> list = dto.ShowStock();
 			<td><span class="<%=sclass %>"><%= status %></span></td>
 			<td>
 				<a class="btn tbin tfc" href="javascript:GetItemDetail('<%= code %>');">조회</a>
-				<a class="btn tbin tfg" href="delitem.jsp?code=<%= code %>">삭제</a>
+				<a class="btn tbin tfg" href="javascript:DeleteItem('<%= code %>');">삭제</a>
+				<!-- a class="btn tbin tfg" href="delitem.jsp?code=<%= code %>">삭제</a -->
 			</td>							
 		</tr>
 		<%
