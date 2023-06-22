@@ -13,7 +13,7 @@ StockVO  svo  = sdto.StockInfo(code);
 String name = svo.getStockName();
 String status = "분석대기";
 String sclass = "status_able";
-
+ 
 if(svo.getStatus().equals("R"))
 {
 	status = "분&nbsp;&nbsp;석&nbsp;&nbsp;중";
